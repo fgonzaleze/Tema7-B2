@@ -18,10 +18,10 @@ public class Main {
             System.out.println("La fecha introducida no es correcta.");
         }
         
-        Fecha fecha2 = new Fecha(31, 12, 2023);
+        Fecha fecha2 = new Fecha(30, 2, 2023);
 
         //si la fecha es correcta
-        if (fecha.fechaCorrecta()) {
+        if (fecha2.fechaCorrecta()) {
             //Indicamos que la fecha es correcta y mostramos la fecha actual así como la fecha del día siguiente
             System.out.println("La fecha introducida es correcta.");
             System.out.println("La fecha actual es: " + fecha2);

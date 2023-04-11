@@ -13,17 +13,17 @@ public class Fecha {
 	/**
 	 * Atributo donde guardaremos el año del objeto fecha
 	 */
-	private int anyo;
+	private int ano;
 
 	// Constructor por defecto
 	public Fecha() {
 	}
 
 	// Constructor con parámetros
-	public Fecha(int dia, int mes, int anyo) {
+	public Fecha(int dia, int mes, int ano) {
 		this.dia = dia;
 		this.mes = mes;
-		this.anyo = anyo;
+		this.ano = ano;
 	}
 
 	// Declaramos los getter y setter
@@ -32,7 +32,10 @@ public class Fecha {
 	}
 
 	public void setDia(int dia) {
-		this.dia = dia;
+		// Solo tiene sentido si el dia esta entre 1 y 31
+		if (dia >= 1 && dia <= 31) { 
+			this.dia = dia;
+		}
 	}
 
 	public int getMes() {
@@ -40,20 +43,22 @@ public class Fecha {
 	}
 
 	public void setMes(int mes) {
-		this.mes = mes;
+		// Solo tiene sentido si el mes esta entre 1 y 12
+		if (mes >= 1 && mes <= 12) {
+			this.mes = mes;
+		}
 	}
 
-	public int getAnyo() {
-		return anyo;
+	public int getAno() {
+		return ano;
 	}
 
-	public void setAnyo(int anyo) {
-		this.anyo = anyo;
+	public void setAno(int ano) {
+		this.ano = ano;
 	}
 
 	/**
 	 * Método que indicará si el año del objeto Fecha es bisiesto o no
-	 * 
 	 * @return true si es bisiesto y false si no
 	 */
 	public boolean esBisiesto(int year) {
@@ -61,6 +66,7 @@ public class Fecha {
 
 		// Si el año es divisible entre 4 y no es divisible entre 100 o es divisible
 		// entre 400, es bisiesto.
+		
 		if ((year % 4 == 0) && (year % 100 != 0 || year % 400 == 0)) {
 			esBisiesto = true;
 		}
@@ -71,7 +77,6 @@ public class Fecha {
 	/**
 	 * Método que comprobará si la fecha es correcta comprobando los meses y los
 	 * días
-	 * 
 	 * @return true si la fecha es correcta y false si no lo es.
 	 */
 	public boolean fechaCorrecta() {
@@ -87,7 +92,7 @@ public class Fecha {
 			} else if (mes == 2) { // para febrero febrero
 				if (dia <= 28) {
 					fechaCorrecta = true;
-				} else if (dia == 29 && esBisiesto(this.anyo)) {
+				} else if (dia == 29 && esBisiesto(this.ano)) {
 					fechaCorrecta = true;
 				}
 			}
@@ -101,49 +106,52 @@ public class Fecha {
 	 */
 
 	public void diaSiguiente(Fecha fecha) {
-		if (fecha.fechaCorrecta()) {
+			// Para el 31 de dic, sumamos un año
 			if (this.dia == 31 && this.mes == 12) {
 				setDia(1);
 				setMes(1);
-				this.anyo++;
+				this.ano++;
+				// si el día es 31 y el mes tiene 31 días
 			} else if (this.dia == 31 && (this.mes == 1 || this.mes == 3 || this.mes == 5 || this.mes == 7
 					|| this.mes == 8 || this.mes == 10 || this.mes == 12)) {
 				setDia(1);
 				this.mes++;
+				// Si el dia es 30 y el mes tiene 30 dias
 			} else if (this.dia == 30 && (this.mes == 4 || this.mes == 6 || this.mes == 9 || this.mes == 11)) {
 				setDia(1);
 				this.mes++;
-			} else if (this.dia == 28 && this.mes == 2 && !esBisiesto(this.anyo)) {
+				// si el mes es febrero y el año no es bisiesto (28)
+			} else if (this.dia == 28 && this.mes == 2 && !esBisiesto(this.ano)) {
 				setDia(1);
 				this.mes++;
-			} else if (this.dia == 29 && this.mes == 2 && esBisiesto(this.anyo)) {
+				//Si el mes es febrero y el año es bisiesto (29)
+			} else if (this.dia == 29 && this.mes == 2 && esBisiesto(this.ano)) {
 				setDia(1);
 				this.mes++;
+				// Para todo lo demás, un diita mas
 			} else {
 				this.dia++;
 			}
 		}
-	}
+	
 
 	/**
 	 * Método que mostrará la fecha en formato dd-mm-aaa
-	 * 
 	 * @return fecha en formato dd-mm-aaaa
 	 */
 
 	public String toString() {
 
-		String fecha = dia + "-" + mes + "-" + anyo;
+		String fecha = dia + "-" + mes + "-" + ano;
 
 		// en caso que el dia sea menor que 10
 		if (dia < 10) {
-			fecha = "0" + dia + "-" + mes + "-" + anyo;
+			fecha = "0" + dia + "-" + mes + "-" + ano;
 		}
 		// en caso que el mes sea menor de 10
 		if (mes < 10) {
-			fecha = dia + "-0" + mes + "-" + anyo;
+			fecha = dia + "-0" + mes + "-" + ano;
 		}
-
 		return fecha;
 	}
 

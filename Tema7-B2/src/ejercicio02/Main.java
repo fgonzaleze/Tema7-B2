@@ -3,15 +3,19 @@ package ejercicio02;
 public class Main {
 
 	public static void main(String[] args) {
-
-		Contador cont1 = new Contador(5);
-		Contador cont2 = new Contador(cont1);
 		
-		cont1.decrementar();
-		cont2.incrementar();
+		// Introducimos el valor inicial en el contador
+		Contador contador=new Contador(3);
 		
-		System.out.println("Cont1 " + cont1.getContador());
-		System.out.println("Cont2 " + cont2.getContador());
+		// Llamamos para incrementar
+		contador.incrementar();
+		
+		// O para decrementar
+		contador.decrementar();
+		contador.decrementar();
+		
+		// El resultado es 2 porque incrementamos 3 + 1 - 2
+		System.out.println("Incrementado " + contador.getContador());
 	}
 
 }
